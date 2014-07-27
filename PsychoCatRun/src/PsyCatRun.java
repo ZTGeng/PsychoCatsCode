@@ -4,7 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Game{
+public class PsyCatRun{
     
     final static Font font1 = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 32);
     final static Font font2 = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16);
@@ -14,7 +14,7 @@ public class Game{
     private Cat cat;
     private int count;
     
-    public Game() {
+    public PsyCatRun() {
         r = new Random();
         board = new int[9][9];
         cat = new Cat();
@@ -51,7 +51,7 @@ public class Game{
         return 155 - i * 17.5;
     }
     
-    public void draw(int t) {
+    private void draw(int t) {
         StdDraw.clear();
         for (int i = 0; i < 9; i ++) {
             for (int j = 0; j < 9; j ++) {
@@ -65,7 +65,7 @@ public class Game{
         StdDraw.show(t);
     }
     
-    public void draw() {
+    private void draw() {
         draw(0);
     }
     
@@ -90,13 +90,12 @@ public class Game{
                 if (i != 8 && inCircle(x, y, i + 1, j)) return (i + 1) * 9 + j;
                 if (j != 8 && inCircle(x, y, i, j + 1)) return i * 9 + j + 1;
                 if (i != 8 && j != 8 && inCircle(x, y, i + 1, j + 1)) return (i + 1) * 9 + j + 1;
-//                continue;
             }
         }
         return -1;
     }
     
-    public void inputAndClose() {
+    private void inputAndClose() {
         int n;
         do {
             n = input();
@@ -105,7 +104,7 @@ public class Game{
         count++;
     }
     
-    public void endInfo() {
+    private void endInfo() {
         StdDraw.setPenColor(StdDraw.MAGENTA);
         StdDraw.setFont(font1);
         if (cat.escaped()) StdDraw.text(100, 182, "Äã¾¹È»ÈÃÃ¨ÅÜÁË£¡");
@@ -146,7 +145,7 @@ public class Game{
     
     public void run() {
         
-        CatRun catRun = new CatRun(cat);
+        CatRun catRun = new CatRun();
         Timer timer = new Timer();
         
         draw();
@@ -171,13 +170,7 @@ public class Game{
         endInfo();
     }
     
-    public class CatRun extends TimerTask{
-
-        private Cat cat;
-        
-        public CatRun (Cat c) {
-            cat = c;
-        }
+    private class CatRun extends TimerTask{
         
         @Override
         public void run() {
@@ -196,7 +189,7 @@ public class Game{
     
     public static void main(String[] args) {
         
-        Game g = new Game();
+        PsyCatRun g = new PsyCatRun();
         g.run();
     }
     

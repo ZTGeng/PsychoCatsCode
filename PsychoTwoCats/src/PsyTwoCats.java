@@ -3,7 +3,7 @@ import java.util.Random;
 
 
 
-public class Game3{
+public class PsyTwoCats{
     
     final static Font font1 = new Font("微软雅黑", Font.PLAIN, 32);
     final static Font font2 = new Font("微软雅黑", Font.PLAIN, 16);
@@ -11,11 +11,11 @@ public class Game3{
     private Random r;
     private int[][] board;
     private int count;
-    int moreStep;
+    private int moreStep;
     private CatA cat1;
     private CatB cat2;
     
-    public Game3() {
+    public PsyTwoCats() {
         r = new Random();
         board = new int[9][9];
         cat1 = new CatA();
@@ -39,7 +39,7 @@ public class Game3{
         }
     }
     
-    protected boolean tryClose(int i, int j) {
+    private boolean tryClose(int i, int j) {
         if (i * 9 + j == cat1.getPos() || i * 9 + j == cat2.getPos()) return false;
         if (board[i][j] == 0) {
             board[i][j] = 10;
@@ -50,7 +50,7 @@ public class Game3{
         return false;
     }
     
-    public void show(int t) {
+    private void draw(int t) {
         StdDraw.clear();
         for (int i = 0; i < 9; i ++) {
             for (int j = 0; j < 9; j ++) {
@@ -68,8 +68,8 @@ public class Game3{
         StdDraw.show(t);
     }
     
-    public void show() {
-        show(0);
+    private void draw() {
+        draw(0);
     }
     
     private void drawCat(double x, double y) {
@@ -127,14 +127,14 @@ public class Game3{
         return (getX(i, j) - x) * (getX(i, j) - x) + (getY(i) - y) * (getY(i) - y) < 100;
     }
     
-    public void inputAndClose() {
+    private void inputAndClose() {
         int n = input();
         while (!tryClose(n / 9, n % 9)) { // 若此格已翻开或被猫占据，tryClose返回false
             n = input();
         }
     }
     
-    public void endInfo() {
+    private void endInfo() {
         StdDraw.setPenColor(StdDraw.MAGENTA);
         StdDraw.setFont(font1);
         if (cat1.escaped() || cat2.escaped()) StdDraw.text(75, 190, "你竟然让猫跑了！");
@@ -145,30 +145,30 @@ public class Game3{
     // 主程序代码
     public void run() {
         
-        show();
+        draw();
         boolean cat1stuck = false;
         boolean cat2stuck = false;
         while (!cat1.escaped() && !cat2.escaped()) {
             inputAndClose();
             if (moreStep > 0) {
-                show();
+                draw();
                 inputAndClose();
                 moreStep--;
             }
             count++;
-            show(1000);
+            draw(1000);
             if (cat1.tryMove()) cat1stuck = false;
             else cat1stuck = true;
             if (cat2.tryMove()) cat2stuck = false;
             else cat2stuck = true;
             if (cat1stuck && cat2stuck) break;
-            show();
+            draw();
         }
         endInfo();
     }
     
     public static void main(String[] args) {
-        Game3 g = new Game3();
+        PsyTwoCats g = new PsyTwoCats();
         g.run();
     }
     

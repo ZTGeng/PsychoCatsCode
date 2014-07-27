@@ -1,12 +1,12 @@
 import java.awt.Font;
 
 
-public class Game1 extends Game{
+public class PsyCatNormal extends Game{
     
     final static Font font1 = new Font("微软雅黑", Font.PLAIN, 32);
     final static Font font2 = new Font("微软雅黑", Font.PLAIN, 16);
     
-    public Game1() {
+    public PsyCatNormal() {
         super();
         StdDraw.setXscale(0, 200);
         StdDraw.setYscale(0, 200);
@@ -21,7 +21,7 @@ public class Game1 extends Game{
         return 155 - i * 17.5;
     }
     
-    public void show(int t) {
+    public void draw(int t) {
         StdDraw.clear();
         for (int i = 0; i < 9; i ++) {
             for (int j = 0; j < 9; j ++) {
@@ -30,15 +30,15 @@ public class Game1 extends Game{
                 StdDraw.filledCircle(getX(i, j), getY(i), 10);
             }
         }
-        drawCat(getX(getCatPos() / 9, getCatPos() % 9), getY(getCatPos() / 9));
+        drawCat(getX(cat.getPos() / 9, cat.getPos() % 9), getY(cat.getPos() / 9));
         StdDraw.setFont(font2);
         StdDraw.setPenColor(StdDraw.ORANGE);
         StdDraw.text(175, 195, "已用：" + count + " 步");
         StdDraw.show(t);
     }
     
-    public void show() {
-        show(0);
+    public void draw() {
+        draw(0);
     }
     
     private int input() {
@@ -78,7 +78,7 @@ public class Game1 extends Game{
     public void endInfo() {
         StdDraw.setPenColor(StdDraw.MAGENTA);
         StdDraw.setFont(font1);
-        if (catEscaped()) StdDraw.text(100, 182, "你竟然让猫跑了！");
+        if (cat.escaped()) StdDraw.text(100, 182, "你竟然让猫跑了！");
         else StdDraw.text(100, 182, "你用了 " + count + " 步抓住了猫！");
         StdDraw.show();
     }
@@ -108,8 +108,20 @@ public class Game1 extends Game{
         StdDraw.line(x - 2, y - 8, x - 5, y);
     }
     
+    public void run() {
+        draw();
+        while (!cat.escaped()) {
+            inputAndClose();
+            draw(1000);
+            if (!cat.tryMove()) break;
+            draw();
+        }
+        endInfo();
+    }
+    
     public static void main(String[] args) {
-        
+        PsyCatNormal g = new PsyCatNormal();
+        g.run();
     }
     
 }

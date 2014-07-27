@@ -105,6 +105,8 @@ public class Game{
         count++;
     }
     
+    
+    
     public void endInfo() {
         StdDraw.setPenColor(StdDraw.MAGENTA);
         StdDraw.setFont(font1);
@@ -146,7 +148,7 @@ public class Game{
     
     public void run() {
         
-        CatRun catRun = new CatRun(cat);
+        CatRun catRun = new CatRun();
         Timer timer = new Timer();
         
         draw();
@@ -163,7 +165,7 @@ public class Game{
         StdDraw.setPenColor(StdDraw.BLACK);
         StdDraw.text(100, 180, "开始！");
         // 倒计时结束
-        timer.schedule(catRun, 1000, 600);
+        timer.schedule(catRun, 2000, 1500);
         while (!cat.escaped() && !cat.isStuck()) {
             inputAndClose();
             draw();
@@ -172,12 +174,6 @@ public class Game{
     }
     
     public class CatRun extends TimerTask{
-
-        private Cat cat;
-        
-        public CatRun (Cat c) {
-            cat = c;
-        }
         
         @Override
         public void run() {

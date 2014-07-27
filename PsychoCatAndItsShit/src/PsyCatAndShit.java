@@ -2,18 +2,18 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GamePC{
+public class PsyCatAndShit{
     
     final static Font font1 = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 32);
     final static Font font2 = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16);
     
     private Random r;
-    protected int[][] board;
+    private int[][] board;
     private Cat cat;
-    protected int count;
+    private int count;
     boolean getShit;
 
-    public GamePC() {
+    public PsyCatAndShit() {
         r = new Random();
         board = new int[9][9];
         cat = new Cat();
@@ -33,7 +33,7 @@ public class GamePC{
         return 155 - i * 17.5;
     }
     
-    public void show(int t) {
+    private void draw(int t) {
         StdDraw.clear();
         StdDraw.setFont(font1);
         for (int i = 0; i < 9; i ++) {
@@ -55,8 +55,8 @@ public class GamePC{
         StdDraw.show(t);
     }
     
-    public void show() {
-        show(0);
+    private void draw() {
+        draw(0);
     }
     
     private int input() {
@@ -89,7 +89,7 @@ public class GamePC{
         return (getX(i, j) - x) * (getX(i, j) - x) + (getY(i) - y) * (getY(i) - y) < 100;
     }
     
-    public void inputAndClose() {
+    private void inputAndClose() {
         int n = input();
         while (!tryClose(n / 9, n % 9)) {
             n = input();
@@ -98,13 +98,13 @@ public class GamePC{
         count++;
     }
     
-    public void endInfo() {
+    private void endInfo() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (board[i][j] == -20) board[i][j] = 20;
             }
         }
-        show();
+        draw();
         StdDraw.setPenColor(StdDraw.MAGENTA);
         StdDraw.setFont(font1);
         if (getShit) StdDraw.text(100, 182, "Äã²Èµ½ÁËÃ¨Êº£¡");
@@ -171,17 +171,21 @@ public class GamePC{
     }
     
     public void run() {
-        show();
+        draw();
         while (!cat.escaped()) {
             inputAndClose();
-            show();
+            draw();
             if (getShit) break;
-            show(1000);
+            draw(1000);
             if (!cat.tryMove()) break;
-            show();
+            draw();
         }
         endInfo();
     }
     
+    public static void main(String[] args) {
+        PsyCatAndShit g = new PsyCatAndShit();
+        g.run();
+    }
     
 }

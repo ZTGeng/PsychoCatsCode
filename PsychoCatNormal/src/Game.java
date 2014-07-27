@@ -19,8 +19,8 @@ public class Game{
         initBoard();
     }
     
-    public void show(int t) {}
-    public void show() {}
+    public void draw(int t) {}
+    public void draw() {}
     public void inputAndClose() {}
     public void endInfo() {}
     
@@ -33,9 +33,9 @@ public class Game{
     }
     
     
-    public int getCatPos() {
-        return cat.getPos();
-    }
+//    public int getCatPos() {
+//        return cat.getPos();
+//    }
     
     protected boolean tryClose(int i, int j) {
         if (i * 9 + j == cat.getPos()) return false;
@@ -47,12 +47,12 @@ public class Game{
         return false;
     }
     
-    protected boolean catTryMove() {
-        return cat.tryMove();
-    }
-    
-    public boolean catEscaped() {
-        return cat.escaped();
-    }
+//    protected boolean catTryMove() {
+//        return cat.tryMove();
+//    }
+//    
+//    public boolean catEscaped() {
+//        return cat.escaped();
+//    }
     
 }
