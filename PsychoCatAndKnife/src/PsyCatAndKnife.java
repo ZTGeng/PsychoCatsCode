@@ -153,6 +153,7 @@ public class PsyCatAndKnife {
     }
     
     private void drawPower(double x, double y, double time) {
+        if (time > 1000) time = 1000; // 控制红条不要超出去
         StdDraw.setPenColor(StdDraw.WHITE);
         StdDraw.filledRectangle(x, y + 2.5, 25, 2.5);
         StdDraw.setPenColor(StdDraw.RED);
@@ -210,7 +211,9 @@ public class PsyCatAndKnife {
                 continue;
             }
             if (StdDraw.mousePressed() && isPressing) { // 持续按着鼠标
-                drawPower(x, y, (double) (System.currentTimeMillis() - startTime));
+                double time = (double) (System.currentTimeMillis() - startTime);
+                if (time <= 1050) // 如果超过1秒钟（加上延迟修正），则力度条已满，不再更新
+                    drawPower(x, y, time);
                 continue;
             }
             if (!StdDraw.mousePressed() && isPressing) { // 刚刚放开鼠标
@@ -220,6 +223,7 @@ public class PsyCatAndKnife {
                 double realY = (double) (System.currentTimeMillis() - startTime - 20) / 5 + 15;
                 if (startTime == 0) realY = 0;
                 startTime = 0;
+                if (realY > 200) realY = 200; // 控制不要飞出屏幕
                 isPressing = false;
                 count++;
                 
