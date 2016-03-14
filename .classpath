@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="PsychoCatAndItsShit/src"/>
+	<classpathentry kind="src" path="PsychoCatAndKnife/src"/>
+	<classpathentry kind="src" path="PsychoCatNormal/src"/>
+	<classpathentry kind="src" path="PsychoCatRun/src"/>
+	<classpathentry kind="src" path="PsychoMateCats/src"/>
+	<classpathentry kind="src" path="PsychoTwoCats/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="PsychoCatAndItsShit/bin"/>
+</classpath>
